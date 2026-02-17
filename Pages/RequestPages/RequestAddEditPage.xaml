@@ -24,7 +24,8 @@
                                 Content="◀️ Назад"
                                 Click="GoBack_Click"
                                 Foreground="#94A3B8"
-                                Style="{StaticResource PrimaryButtonTheme}"/>
+                                Margin="5,0,0,0"
+                                Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
 
                     <Label x:Name="RequestTitle"
                                Content="Заявка на подключение"

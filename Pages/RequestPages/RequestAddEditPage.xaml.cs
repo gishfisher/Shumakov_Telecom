@@ -67,7 +67,7 @@ namespace Telecom.Pages
         }
 
         /*
-         * ПОВЕДЕНИЕ ЗАЯВКИ
+         * ============== ПОВЕДЕНИЕ ЗАЯВКИ ==============
          */
 
         // Добавление заявки
@@ -372,7 +372,7 @@ namespace Telecom.Pages
                 case 0:
                     AddRequest.Visibility = Visibility.Visible;
                     break;
-            
+            }
         }
     }
 }

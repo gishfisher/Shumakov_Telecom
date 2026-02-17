@@ -4,11 +4,156 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Telecom.Pages.EmployeePages"
+      xmlns:services="clr-namespace:Telecom.Services"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="EmployeesPage">
+      Background="#FFFFFF" Title="EmployeesPage">
 
-    <Grid>
-        
-    </Grid>
+    <Border Grid.Row="1" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Сотрудники"
+                       FontSize="14pt"
+                       FontWeight="DemiBold" 
+                       Foreground="#111827"
+                       Padding="5"
+                       Grid.Row="0"/>
+
+            <DockPanel Grid.Row="1" LastChildFill="False">
+                <Button x:Name="ButtonAdd" 
+                        Content="➕ Добавить сотрудника"
+                        Click="ButtonAdd_Click"
+                        DockPanel.Dock="Left"
+                        Background="#10B981"
+                        Foreground="#FFFFFF"
+                        Margin="5,0"
+                        Style="{StaticResource PrimaryButtonTheme}"/>
+
+                <ComboBox DockPanel.Dock="Right"
+                          Margin="5"
+                          Width="150"
+                          Tag="Должность"
+                          Style="{StaticResource ModernComboBox}"/>
+
+                <TextBox x:Name="SearchBox"
+                         DockPanel.Dock="Right"
+                         Margin="5"
+                         Width="250"
+                         Tag="🔍 Поиск"
+                         Style="{StaticResource ModernTextBox}"/>
+
+            </DockPanel>
+
+            <DataGrid x:Name="DataGridEmployees"
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      RowBackground="#FFFFFFFF"
+                      AlternatingRowBackground="#F4F7F9"
+                      Grid.Row="2"
+                      Margin="0,5,0,0"
+                      Style="{StaticResource ModernDataGrid}">
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Номер" 
+                                        Width="0.5*"
+                                        Binding="{Binding EmployeeId, StringFormat=\{0:D4\}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Сотрудник" 
+                                        Width="*"
+                                        Binding="{Binding GetShortName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Должность" 
+                                        Width="*"
+                                        Binding="{Binding User.Role.Name}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Пользователь" 
+                                        Width="*"
+                                        Binding="{Binding User.Login}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ButtonEdit" 
+                                        Content="🖋️"
+                                        Background="Transparent"
+                                        FontSize="14"
+                                        Foreground="#94A3B8"
+                                        Visibility="Collapsed"
+                                        Click="ButtonEdit_Click"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static services:UserSessionService.IsAdmin}}" 
+                                                 Value="True">
+                                        <Setter TargetName="ButtonEdit" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ButtonDelete"
+                                            Content="❌"
+                                            FontSize="14"
+                                            Foreground="#EF4444"
+                                            Visibility="Collapsed"
+                                            Click="ButtonDelete_Click"
+                                            Style="{StaticResource PrimaryButtonTheme}"/>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static services:UserSessionService.IsAdmin}}" 
+                                                 Value="True">
+                                        <Setter TargetName="ButtonDelete" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
 </Page>

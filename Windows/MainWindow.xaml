@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Telecom"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Telecom"
         MinHeight="625" MinWidth="1000"
         Height="625" Width="1000">
 
@@ -76,29 +76,37 @@
 
         <StackPanel x:Name="ButtonsPanel" Grid.Row="1" >
 
-            <RadioButton Content="👥 Клиенты" 
+            <RadioButton x:Name="OpenClientPage" 
+                         Content="👥 Клиенты" 
                          Height="50" 
                          Foreground="#FFFFFF"
                          FontSize="16"
+                         Click="OpenClientPage_Click"
                          Style="{StaticResource MenuButtonTheme}"/>
 
-            <RadioButton Content="📩 Заявки" 
+            <RadioButton x:Name="OpenRequestPage"
+                         Content="📩 Заявки" 
                          Height="50" 
                          Foreground="#FFFFFF"
                          FontSize="16"
+                         Click="OpenRequestPage_Click"
                          Style="{StaticResource MenuButtonTheme}"/>
 
 
-            <RadioButton Content="📂 Услуги" 
+            <RadioButton x:Name="OpenServicesPage"
+                         Content="📂 Услуги" 
                          Height="50" 
                          Foreground="#FFFFFF"
                          FontSize="16"
+                         Click="OpenServicesPage_Click"
                          Style="{StaticResource MenuButtonTheme}"/>
 
-            <RadioButton Content="👤 Сотрудники" 
+            <RadioButton x:Name="OpenEmployeePage"
+                         Content="👤 Сотрудники" 
                          Height="50" 
                          Foreground="#FFFFFF"
                          FontSize="16"
+                         Click="OpenEmployeePage_Click"
                          Style="{StaticResource MenuButtonTheme}"/>
 
             <!--<RadioButton Content="Роли" 

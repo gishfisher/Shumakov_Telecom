@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shumakov_Telecom.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,27 @@ namespace Telecom.Pages.EmployeePages
     /// </summary>
     public partial class EmployeesPage : Page
     {
+        private TelecomServiceDeskEntities _db = TelecomServiceDeskEntities.GetContext();
+
         public EmployeesPage()
         {
             InitializeComponent();
+            DataGridEmployees.ItemsSource = _db.Employees.ToList();
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

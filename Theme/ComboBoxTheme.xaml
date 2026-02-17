@@ -6,6 +6,7 @@
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="MinHeight" Value="25"/>
         <Setter Property="Foreground" Value="#1F2937"/>
+        <Setter Property="Background" Value="#FFFFFF"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">

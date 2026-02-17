@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Telecom.Pages;
+using Telecom.Pages.ClientPages;
+using Telecom.Pages.EmployeePages;
+using Telecom.Pages.ServicePages;
 using Telecom.Services;
 using Telecom.Utility;
 using TelecomCompany.Pages;
@@ -40,6 +43,9 @@ namespace Telecom
                 return;
             }
 
+            if (UserSessionService.IsMaster || UserSessionService.IsDispatch)
+                OpenEmployeePage.Visibility = Visibility.Collapsed;
+
             TextBlockCurrentUser.Text =
                 $"👤 {UserSessionService.CurrentUser.Employees.FirstOrDefault()?.GetShortName} " +
                 $"[{UserSessionService.CurrentUser.Login}]\n" +
@@ -60,6 +66,26 @@ namespace Telecom
                 UserSessionService.Logout();
 
             Manager.AppFrame.Navigate(new AuthPage());
+        }
+
+        private void OpenClientPage_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.AppFrame.Navigate(new ClientsPage());
+        }
+
+        private void OpenRequestPage_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.AppFrame.Navigate(new RequestPage());
+        }
+
+        private void OpenServicesPage_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.AppFrame.Navigate(new ServicesPage());
+        }
+
+        private void OpenEmployeePage_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.AppFrame.Navigate(new EmployeesPage());
         }
     }
 }
