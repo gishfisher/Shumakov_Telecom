@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Telecom.Pages"
+      xmlns:services="clr-namespace:Telecom.Services"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestPage"
@@ -225,11 +226,20 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button x:Name="ButtonDelete"
-                                        Content="❌"
-                                        FontSize="14"
-                                        Foreground="#EF4444"
-                                        Click="ButtonDelete_Click"
-                                        Style="{StaticResource PrimaryButtonTheme}"/>
+                                            Content="❌"
+                                            FontSize="14"
+                                            Foreground="#EF4444"
+                                            Visibility="Collapsed"
+                                            Click="ButtonDelete_Click"
+                                            Style="{StaticResource PrimaryButtonTheme}"/>
+                            
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static services:UserSessionService.IsAdmin}}" 
+                                                 Value="True">
+                                        <Setter TargetName="ButtonDelete" Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

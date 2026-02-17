@@ -12,7 +12,16 @@ namespace Telecom.Services
         public static User CurrentUser { get; private set; }
 
         public static bool IsAuthenticated => CurrentUser != null;
-        public static bool IsAdmin => CurrentUser.Role.RoleId == 1;
+        public static bool IsAdmin => CurrentUser?.Role?.RoleId == (int)RolesName.Admin;
+        public static bool IsDispatch => CurrentUser?.Role?.RoleId == (int)RolesName.Dispacth;
+        public static bool IsMaster => CurrentUser?.Role?.RoleId == (int)RolesName.Master;
+
+        //Dictionary<RolesName, int> _roles = new Dictionary<RolesName, int>()
+        //{
+        //    {RolesName.Admin, 1 },
+        //    {RolesName.Dispacth, 2 },
+        //    {RolesName.Master, 3 }
+        //};
 
         public static void Logout()
         {

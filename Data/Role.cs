@@ -26,4 +26,11 @@ namespace Shumakov_Telecom.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
     }
+
+    public enum RolesName
+    {
+        Admin = 1,
+        Dispacth = 2,
+        Master = 3
+    }
 }

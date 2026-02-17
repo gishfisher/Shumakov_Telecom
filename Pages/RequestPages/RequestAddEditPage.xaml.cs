@@ -314,14 +314,28 @@ namespace Telecom.Pages
                 switch (request.StatusId)
                 {
                     case (int)RequestStatusType.New:
-                        AssignRequest.Visibility = Visibility.Visible;
-                        EditRequest.Visibility = Visibility.Visible;
-                        CancelRequest.Visibility = Visibility.Visible;
+                        if (UserSessionService.IsAdmin || UserSessionService.IsDispatch)
+                        {
+                            EditRequest.Visibility = Visibility.Visible;
+                            CancelRequest.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            AssignRequest.Visibility = Visibility.Visible;
+                        }
                         break;
+
                     case (int)RequestStatusType.Assigned:
-                        SetInProgressRequest.Visibility = Visibility.Visible;
-                        EditRequest.Visibility = Visibility.Visible;
-                        CancelRequest.Visibility = Visibility.Visible;
+                        if (UserSessionService.IsAdmin || UserSessionService.IsDispatch)
+                        {
+                            EditRequest.Visibility = Visibility.Visible;
+                            CancelRequest.Visibility = Visibility.Visible;
+                        }
+                        else if (UserSessionService.IsMaster && request.EmployeeId == UserSessionService.CurrentUser.Employees.FirstOrDefault()?.EmployeeId)
+                        {
+                            SetInProgressRequest.Visibility = Visibility.Visible;
+                            CancelRequest.Visibility = Visibility.Visible;
+                        }
                         break;
                     case (int)RequestStatusType.InProgress:
                         MarkRequestComplete.Visibility = Visibility.Visible;
