@@ -1,0 +1,134 @@
+﻿<Window x:Class="Telecom.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Telecom"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        MinHeight="625" MinWidth="1000"
+        Height="625" Width="1000">
+
+    <Grid Background="#F4F7F9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <DockPanel Margin="10,0" Grid.Row="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" 
+                        VerticalAlignment="Center">
+
+                <!--<Image Width="150" Source="/Images/mainlogo.png" />-->
+
+                <TextBlock Text="Телеком"
+                           FontSize="14pt"
+                           Foreground="#1E293B"
+                           Margin="0,0,5,0"
+                           FontWeight="DemiBold"
+                           HorizontalAlignment="Center" 
+                           VerticalAlignment="Center"/>
+
+                <!--<StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Cпектр"
+                               FontSize="12pt"
+                               Foreground="#1E293B"
+                               Margin="0,0,5,0"
+                               FontWeight="DemiBold"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                    <Border Background="#2563EB" Width="75"
+                            Padding="1" CornerRadius="2">
+                        <TextBlock Text="телеком"
+                                   FontSize="12pt"
+                                   Foreground="White" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" Height="25"/>
+                    </Border>
+                </StackPanel>-->
+
+
+            </StackPanel>
+
+            <StackPanel x:Name="HelloPanel" DockPanel.Dock="Right" 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right">
+
+                <TextBlock x:Name="TextBlockCurrentUser"
+                           Foreground="#2C3E50" 
+                           VerticalAlignment="Center"
+                           TextAlignment="Right"
+                           HorizontalAlignment="Right"/>
+
+                <Button x:Name="ButtonLogout"
+                        Content="➡️"
+                        Foreground="#EF4444"
+                        FontSize="12pt"
+                        Click="ButtonLogout_Click"
+                        Style="{StaticResource PrimaryButtonTheme}"/>
+            </StackPanel>
+        </DockPanel>
+
+        <StackPanel x:Name="ButtonsPanel" Grid.Row="1" >
+
+            <RadioButton Content="👥 Клиенты" 
+                         Height="50" 
+                         Foreground="#FFFFFF"
+                         FontSize="16"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="📩 Заявки" 
+                         Height="50" 
+                         Foreground="#FFFFFF"
+                         FontSize="16"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+
+            <RadioButton Content="📂 Услуги" 
+                         Height="50" 
+                         Foreground="#FFFFFF"
+                         FontSize="16"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="👤 Сотрудники" 
+                         Height="50" 
+                         Foreground="#FFFFFF"
+                         FontSize="16"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <!--<RadioButton Content="Роли" 
+                         Height="50" 
+                         Foreground="#FFFFFF"
+                         FontSize="16"
+                         Style="{StaticResource MenuButtonTheme}"/>
+
+            <RadioButton Content="Статусы" 
+                         Height="50" 
+                         Foreground="#FFFFFF"
+                         FontSize="16"
+                         Style="{StaticResource MenuButtonTheme}"/>-->
+        </StackPanel>
+
+        <Border Grid.Row="1" Grid.Column="1">
+            <Border.Effect>
+                <DropShadowEffect Color="#1E293B" 
+                                  BlurRadius="10" 
+                                  ShadowDepth="0" 
+                                  Opacity="0.1"/>
+            </Border.Effect>
+            <Frame Margin="10" 
+                   x:Name="MainFrame"
+                   NavigationUIVisibility="Hidden"
+                   ContentRendered="MainFrame_ContentRendered"/>
+        </Border>
+
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="-1" Background="#FFFFFF"/>
+        <Grid Grid.Row="2" Panel.ZIndex="-1" Background="#2C3E50"/>
+    </Grid>
+</Window>

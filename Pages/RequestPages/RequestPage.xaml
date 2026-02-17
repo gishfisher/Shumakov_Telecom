@@ -1,0 +1,240 @@
+﻿<Page x:Class="Telecom.Pages.RequestPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Telecom.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RequestPage"
+      Background="#FFFFFF" IsVisibleChanged="Page_IsVisibleChanged">
+
+    <Border Grid.Row="1" Padding="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Заявки клиентов"
+                       FontSize="14pt"
+                       FontWeight="DemiBold" 
+                       Foreground="#111827"
+                       Padding="5"
+                       Grid.Row="0"/>
+
+            <DockPanel Grid.Row="1" LastChildFill="False">
+                <Button x:Name="AddRequest" 
+                        Click="AddRequest_Click"
+                        Content="➕ Создать заявку"
+                        DockPanel.Dock="Left"
+                        Background="#10B981"
+                        Foreground="#FFFFFF"
+                        Margin="5,0"
+                        Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+
+                <CheckBox Content="Скрыть закрытые"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                          DockPanel.Dock="Right"
+                          Background="White"
+                          BorderBrush="#9CA3AF"
+                          Foreground="#9CA3AF"/>
+
+                <ComboBox DockPanel.Dock="Right"
+                          Margin="5"
+                          Width="100"
+                          Tag="Приоритет"
+                          Style="{StaticResource ModernComboBox}"/>
+
+                <ComboBox DockPanel.Dock="Right"
+                          Margin="5"
+                          Width="100"
+                          Tag="Статус"
+                          Style="{StaticResource ModernComboBox}"/>
+                
+                <TextBox x:Name="SearchBox"
+                         DockPanel.Dock="Right"
+                         Margin="5"
+                         Width="250"
+                         Tag="🔍 Поиск по клиенту"
+                         Style="{StaticResource ModernTextBox}"/>
+            </DockPanel>
+
+            <DataGrid x:Name="DataGridRequests"
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      RowBackground="#FFFFFFFF"
+                      AlternatingRowBackground="#F4F7F9"
+                      Grid.Row="2"
+                      Margin="0,5,0,0"
+                      Style="{StaticResource ModernDataGrid}">
+                
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Дата" 
+                                        Width="*"
+                                        Binding="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Номер" 
+                                        Width="0.75*"
+                                        Binding="{Binding RequestId, StringFormat=\{0:D4\}}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn x:Name="Status" 
+                                        Header="Статус" 
+                                        Width="*"
+                                        Binding="{Binding RequestStatus.Name}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding StatusId}" Value="1">
+                                        <Setter Property="Background" 
+                                                Value="{Binding RequestStatus.StatusColor}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding StatusId}" Value="2">
+                                        <Setter Property="Background" 
+                                                Value="{Binding RequestStatus.StatusColor}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding StatusId}" Value="3">
+                                        <Setter Property="Background" 
+                                                Value="{Binding RequestStatus.StatusColor}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding StatusId}" Value="4">
+                                        <Setter Property="Background" 
+                                                Value="{Binding RequestStatus.StatusColor}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding StatusId}" Value="5">
+                                        <Setter Property="Background" 
+                                                Value="{Binding RequestStatus.StatusColor}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding StatusId}" Value="6">
+                                        <Setter Property="Background" 
+                                                Value="{Binding RequestStatus.StatusColor}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn x:Name="Priotity"
+                                        Header="Приоритет" 
+                                        Width="*"
+                                        Binding="{Binding RequestPriority.Name}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PriorityId}" Value="1">
+                                        <Setter Property="Background"
+                                                Value="{Binding RequestPriority.PriorityColor}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PriorityId}" Value="2">
+                                        <Setter Property="Background"
+                                                Value="{Binding RequestPriority.PriorityColor}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PriorityId}" Value="3">
+                                        <Setter Property="Background"
+                                                Value="{Binding RequestPriority.PriorityColor}"/>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding PriorityId}" Value="4">
+                                        <Setter Property="Background"
+                                                Value="{Binding RequestPriority.PriorityColor}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Клиент" 
+                                        Width="*"
+                                        Binding="{Binding Client.GetShortName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Сумма" 
+                                        Width="0.75*"
+                                        Binding="{Binding TotalAmount, StringFormat={}{0:N2} ₽}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Left"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="10,0"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="#2563EB"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ButtonEdit" 
+                                        Content="🖋️"
+                                        Background="Transparent"
+                                        FontSize="14"
+                                        Foreground="#94A3B8"
+                                        Click="ButtonEdit_Click"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ButtonDelete"
+                                        Content="❌"
+                                        FontSize="14"
+                                        Foreground="#EF4444"
+                                        Click="ButtonDelete_Click"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Border>
+</Page>

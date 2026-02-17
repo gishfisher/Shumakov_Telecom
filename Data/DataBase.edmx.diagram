@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="af49e825aed545cd86b63a51f50c1005" Name="Diagram1">
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.Client" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.Employee" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.RequestPriority" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.Request" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.RequestStatus" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.RequestType" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.Role" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.Service" Width="1.5" PointX="9.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TelecomServiceDeskModel.User" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Requests_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Employees_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Requests_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Requests_RequestPriorities" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Requests_RequestStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Requests_RequestTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="TelecomServiceDeskModel.RequestServices" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

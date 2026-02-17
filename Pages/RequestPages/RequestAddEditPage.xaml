@@ -1,0 +1,365 @@
+﻿<Page x:Class="Telecom.Pages.RequestAddEditPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Telecom.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="800"
+      Title="RequestAddEditPage" Background="#FFFFFF" Cursor="">
+
+    <Border Margin="10">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Grid Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!--<RowDefinition Height="Auto"/>-->
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="GoBack"
+                                Content="◀️ Назад"
+                                Click="GoBack_Click"
+                                Foreground="#94A3B8"
+                                Style="{StaticResource PrimaryButtonTheme}"/>
+
+                    <Label x:Name="RequestTitle"
+                               Content="Заявка на подключение"
+                               FontSize="14pt"
+                               Padding="5"/>
+                </StackPanel>
+
+                <DockPanel Grid.Row="1" Margin="0,0,0,10">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="AddRequest" 
+                                Content="➕ Добавить заявку"
+                                Background="#10B981"
+                                Foreground="#FFFFFF"
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="AddRequest_Click"
+                                Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+
+                        <Button x:Name="EditRequest" 
+                                Content="📝 Редактировать заявку"
+                                Background="#2563EB" 
+                                Foreground="#FFFFFF" 
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="AddRequest_Click"
+                                Style="{StaticResource PrimaryButtonTheme}"/>
+
+                        <Button x:Name="AssignRequest"
+                                Content="🔘 Взять заявку"
+                                Background="#2563EB "
+                                Foreground="#FFFFFF"
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="AssignRequest_Click"
+                                Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+                        
+                        <Button x:Name="MarkRequestComplete" 
+                                Content="✅ Выполнить"
+                                Background="#10B981"
+                                Foreground="#FFFFFF"
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="MarkRequestComplete_Click"
+                                Style="{StaticResource PrimaryButtonTheme}"/>
+
+                        <Button x:Name="SetInProgressRequest"
+                                Content="Начать работу"
+                                Background="#E27A53 "
+                                Foreground="#FFFFFF"
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="SetInProgressRequest_Click"
+                                Style="{StaticResource PrimaryButtonTheme}"/>
+
+                        <Button x:Name="CancelRequest" 
+                                Content="❎ Отменить заявку"
+                                Foreground="#EF4444"
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="CancelRequest_Click"
+                                Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+
+                        <Button x:Name="CloseRequest"
+                                Content="🎯 Закрыть заявку"
+                                Background="#94A3B8 "
+                                Foreground="#FFFFFF"
+                                Visibility="Collapsed"
+                                Margin="5,0"
+                                Click="CloseRequest_Click"
+                                Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+
+
+                    </StackPanel>
+                </DockPanel>
+                
+                <Separator Grid.Row="1" VerticalAlignment="Bottom" Padding="5"
+                           Background="#94A3B8"/>
+
+                <StackPanel Grid.Row="2" HorizontalAlignment="Left">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"/>
+                            <ColumnDefinition Width="350"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Статус"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="10" Height="10" Margin="5" x:Name="StatusEllipse"
+                                                     VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock x:Name="StatusText" 
+                                                   Text="{Binding RequestStatus.Name}"
+                                                   FontSize="12pt"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Label>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="1">
+                            <Grid Margin="0,0,15,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="1.25*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel>
+                                    <Label Content="Номер заявки"/>
+                                    <TextBox IsReadOnly="True"
+                                             Margin="0,0,15,0"
+                                             Text="{Binding RequestId, StringFormat=\{0:D4\}}"
+                                             Style="{StaticResource ModernTextBox}"
+                                             Tag="Номер"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Grid.Row="0">
+                                    <Label Content="Дата"/>
+                                    <TextBox x:Name="CurrentDate" 
+                                             IsReadOnly="True"
+                                             Text="{Binding CreatedAt, StringFormat=dd.MM.yyyy HH:mm}"
+                                             Style="{StaticResource ModernTextBox}"
+                                             Tag="Дата и время"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="2" Margin="0,0,15,0">
+                            <Label Content="Клиент"/>
+                            <ComboBox x:Name="ComboClients" 
+                                      SelectedItem="{Binding Client}"
+                                      DisplayMemberPath="GetShortName"
+                                      Style="{StaticResource ModernComboBox}"
+                                      Tag="Укажите клиента"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="3" Grid.RowSpan="1">
+                            <Label Content="Описание"/>
+                            <TextBox x:Name="DescriptionTextBox"
+                                     TextWrapping="Wrap"
+                                     Text="{Binding Description}"
+                                     Margin="0,0,15,0"
+                                     Height="55"
+                                     Style="{StaticResource ModernTextBox}"
+                                     Tag=" Добавьте описание зявки"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="1">
+                            <StackPanel>
+                                <Label Content="Приоритет"/>
+                                <ComboBox x:Name="ComboPriority"
+                                          SelectedItem="{Binding RequestPriority}"
+                                          DisplayMemberPath="Name"
+                                          Style="{StaticResource ModernComboBox}"
+                                          SelectionChanged="ComboPriority_SelectionChanged"
+                                          Tag="Выберите приоритет"/>
+                                              
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="2">
+                            <Label Content="Тип обращения"/>
+                            <ComboBox x:Name="ComboRequestType"
+                                          SelectedItem="{Binding RequestType}"
+                                          DisplayMemberPath="Name"
+                                          Style="{StaticResource ModernComboBox}"
+                                          Tag="Выберите тип обращения"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Grid.Row="3" Cursor="">
+                            <Label Content="Назначенный сотрудник"/>
+                            <ComboBox x:Name="ComboEmployees"
+                                          SelectedItem="{Binding Employee}"
+                                          DisplayMemberPath="GetShortNameWithRole"
+                                          Style="{StaticResource ModernComboBox}"
+                                          Tag="Укажите сотрудника"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <Expander Header="Услуги" IsExpanded="True" Grid.Row="3">
+                    <Expander.Resources>
+                        <Style TargetType="Expander">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" 
+                                                   FontSize="14pt" 
+                                                   Margin="10"/>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Expander.Resources>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Margin="0,0,0,5">
+                            <ComboBox x:Name="ComboServices"
+                                          Width="200"
+                                          Height="30"
+                                          SelectedItem="{Binding Service}"
+                                          DisplayMemberPath="Name"
+                                          Style="{StaticResource ModernComboBox}"
+                                          Tag="Выберите услугу"/>
+
+                            <Button x:Name="AddService"
+                                        Content="➕ Добавить услугу"
+                                        DockPanel.Dock="Left"
+                                        HorizontalAlignment="Left"
+                                        Foreground="#2C3E50"
+                                        Click="AddService_Click"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+                        </DockPanel>
+
+                        <DataGrid x:Name="DataGridServices" IsReadOnly="True" AutoGenerateColumns="False"
+                                      Grid.Row="1" 
+                                      HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"
+                                      Style="{StaticResource ModernDataGrid}">
+
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Наименование" Width="*" Binding="{Binding Name}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Margin" Value="10,0"/>
+                                            <Setter Property="TextAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Header="Цена" Width="*" 
+                                                        Binding="{Binding Price, StringFormat={}{0:N2} ₽}">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="TextAlignment" Value="Left"/>
+                                            <Setter Property="VerticalAlignment" Value="Center"/>
+                                            <Setter Property="Margin" Value="10,0"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="#2563EB"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTemplateColumn Width="50">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="ButtonDeleteService"
+                                                        Content="❌" 
+                                                        FontSize="14"
+                                                        Foreground="#EF4444"
+                                                        Click="ButtonDeleteService_Click"
+                                                        Style="{StaticResource PrimaryButtonTheme}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <DockPanel Grid.Row="3">
+                            <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Label HorizontalAlignment="Right" VerticalAlignment="Center"
+                                           Content="Сумма:" 
+                                           FontSize="14pt"
+                                           Foreground="#1E293B"
+                                           FontWeight="DemiBold"/>
+                                <TextBlock x:Name="TBTotalAmount" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                               Padding="10" FontSize="14pt" FontWeight="Bold"
+                                               Foreground="#2563EB"
+                                               Text="{Binding TotalAmount, StringFormat={}{0:N2} ₽}"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Grid>
+                </Expander>
+                <!--<UniformGrid Grid.Row="4" Columns="2" >
+                    <Expander Header="Действия" IsExpanded="True">
+                        <Expander.Resources>
+                            <Style TargetType="Expander">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+                                                           FontSize="14pt" 
+                                                           Margin="10"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Expander.Resources>
+
+                        <WrapPanel ItemWidth="125">
+
+                            <Button x:Name="CloseRequest"
+                                        Content="🎯 Закрыть заявку"
+                                        Background="#94A3B8 "
+                                        Foreground="#FFFFFF"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+
+                            <Button x:Name="AssignRequest"
+                                        Content="🔘 Взять заявку"
+                                        Background="#2563EB "
+                                        Foreground="#FFFFFF"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+
+                            <Button x:Name="PauseRequest"
+                                        Content="⏸️ На паузу"
+                                        Background="#E27A53 "
+                                        Foreground="#FFFFFF"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+
+                            <Button x:Name="MarkRequestComplete" 
+                                        Content="✅ Выполнить"
+                                        Background="#10B981"
+                                        Foreground="#FFFFFF"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+
+                            <Button x:Name="Dismiss"
+                                        Content="❎ Отклонить"
+                                        Foreground="#EF4444"
+                                        Style="{StaticResource PrimaryButtonTheme}"/>
+                        </WrapPanel>
+                    </Expander>
+                </UniformGrid>-->
+            </Grid>
+        </ScrollViewer>
+    </Border>
+</Page>
