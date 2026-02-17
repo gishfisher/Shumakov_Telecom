@@ -48,6 +48,7 @@ namespace Telecom.Pages
                 }
 
                 DataGridServices.ItemsSource = _tempStorage.Items;
+                ComboEmployees.IsEnabled = false;
             }
             else
             {
@@ -301,62 +302,77 @@ namespace Telecom.Pages
         // Изменить UI в зависимости от статуса заявки
         private void ChangeVisibility(Request request)
         {
-            AssignRequest.Visibility = Visibility.Collapsed;
-            SetInProgressRequest.Visibility = Visibility.Collapsed;
-            MarkRequestComplete.Visibility = Visibility.Collapsed;
-            CloseRequest.Visibility = Visibility.Collapsed;
-            CancelRequest.Visibility = Visibility.Collapsed;
-            AddRequest.Visibility = Visibility.Collapsed;
+            AssignRequest.Visibility = SetInProgressRequest.Visibility =
+            MarkRequestComplete.Visibility = CloseRequest.Visibility =
+            CancelRequest.Visibility = AddRequest.Visibility =
             EditRequest.Visibility = Visibility.Collapsed;
 
-            if (request != null)
-            {
-                switch (request.StatusId)
-                {
-                    case (int)RequestStatusType.New:
-                        if (UserSessionService.IsAdmin || UserSessionService.IsDispatch)
-                        {
-                            EditRequest.Visibility = Visibility.Visible;
-                            CancelRequest.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            AssignRequest.Visibility = Visibility.Visible;
-                        }
-                        break;
+            if (request == null) return;
 
-                    case (int)RequestStatusType.Assigned:
-                        if (UserSessionService.IsAdmin || UserSessionService.IsDispatch)
-                        {
-                            EditRequest.Visibility = Visibility.Visible;
-                            CancelRequest.Visibility = Visibility.Visible;
-                        }
-                        else if (UserSessionService.IsMaster && request.EmployeeId == UserSessionService.CurrentUser.Employees.FirstOrDefault()?.EmployeeId)
-                        {
-                            SetInProgressRequest.Visibility = Visibility.Visible;
-                            CancelRequest.Visibility = Visibility.Visible;
-                        }
-                        break;
-                    case (int)RequestStatusType.InProgress:
-                        MarkRequestComplete.Visibility = Visibility.Visible;
+            bool isAssignedToMe = request.EmployeeId != null &&
+                UserSessionService.CurrentUser.Employees.Any(e => e.EmployeeId == request.EmployeeId);
+
+            switch (request.StatusId)
+            {
+                case (int)RequestStatusType.New:
+                    if (UserSessionService.IsMaster || UserSessionService.IsDispatch || UserSessionService.IsAdmin)
+                        AssignRequest.Visibility = Visibility.Visible;
+
+                    if (UserSessionService.IsDispatch || UserSessionService.IsAdmin)
+                    {
                         EditRequest.Visibility = Visibility.Visible;
                         CancelRequest.Visibility = Visibility.Visible;
-                        break;
-                    case (int)RequestStatusType.Completed:
+                    }
+                    break;
+
+                case (int)RequestStatusType.Assigned:
+                    if (isAssignedToMe)
+                    {
+                        SetInProgressRequest.Visibility = Visibility.Visible;
+                        CancelRequest.Visibility = Visibility.Visible;
+                    }
+                    else if (UserSessionService.IsDispatch || UserSessionService.IsAdmin)
+                    {
+                        EditRequest.Visibility = Visibility.Visible;
+                        CancelRequest.Visibility = Visibility.Visible;
+                    }
+                    break;
+
+                case (int)RequestStatusType.InProgress:
+                    if (isAssignedToMe)
+                    {
+                        MarkRequestComplete.Visibility = Visibility.Visible;
+                        CancelRequest.Visibility = Visibility.Visible;
+                    }
+                    else if (UserSessionService.IsDispatch || UserSessionService.IsAdmin)
+                    {
+                        EditRequest.Visibility = Visibility.Visible;
+                        CancelRequest.Visibility = Visibility.Visible;
+                    }
+                    break;
+
+                case (int)RequestStatusType.Completed:
+                    if (UserSessionService.IsDispatch || UserSessionService.IsAdmin)
                         CloseRequest.Visibility = Visibility.Visible;
-                        break;
-                    case (int)RequestStatusType.Cancelled:
+                    break;
+
+                case (int)RequestStatusType.Cancelled:
+                    if (UserSessionService.IsDispatch || UserSessionService.IsAdmin)
+                    {
                         AssignRequest.Visibility = Visibility.Visible;
                         EditRequest.Visibility = Visibility.Visible;
                         CloseRequest.Visibility = Visibility.Visible;
-                        break;
-                    case (int)RequestStatusType.Closed:
-                        break;
-                    default:
-                        AddRequest.Visibility = Visibility.Visible;
-                        break;
-                }
-            }
+                    }
+                    else if (UserSessionService.IsMaster)
+                    {
+                        AssignRequest.Visibility = Visibility.Visible;
+                    }
+                    break;
+
+                case 0:
+                    AddRequest.Visibility = Visibility.Visible;
+                    break;
+            
         }
     }
 }
