@@ -7,7 +7,7 @@
       xmlns:services="clr-namespace:Telecom.Services"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="#FFFFFF" Title="EmployeesPage">
+      Background="#FFFFFF" Title="EmployeesPage" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Border Grid.Row="1" Padding="10">
         <Grid>
@@ -34,10 +34,14 @@
                         Margin="5,0"
                         Style="{StaticResource PrimaryButtonTheme}"/>
 
-                <ComboBox DockPanel.Dock="Right"
+                <ComboBox x:Name="ComboRole" 
+                          DockPanel.Dock="Right"
                           Margin="5"
                           Width="150"
                           Tag="Должность"
+                          SelectionChanged="ComboRole_SelectionChanged"
+                          SelectedItem="{Binding Role}"
+                          DisplayMemberPath="Name"
                           Style="{StaticResource ModernComboBox}"/>
 
                 <TextBox x:Name="SearchBox"
@@ -45,6 +49,7 @@
                          Margin="5"
                          Width="250"
                          Tag="🔍 Поиск"
+                         TextChanged="SearchBox_TextChanged"
                          Style="{StaticResource ModernTextBox}"/>
 
             </DockPanel>

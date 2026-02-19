@@ -15,6 +15,7 @@ namespace Shumakov_Telecom.Data
     
     public partial class TelecomServiceDeskEntities : DbContext
     {
+
         private static TelecomServiceDeskEntities _context;
 
         public static TelecomServiceDeskEntities GetContext()

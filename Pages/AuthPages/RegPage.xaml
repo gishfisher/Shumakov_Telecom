@@ -8,7 +8,90 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RegPage">
 
-    <Grid>
-        
-    </Grid>
+    <Border MaxWidth="700"
+            VerticalAlignment="Center" HorizontalAlignment="Center"
+            Background="#FFFFFF" Width="550">
+
+        <StackPanel Margin="25">
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="GoBack"
+                        Content="◀️ Назад"
+                        Click="GoBack_Click"
+                        Foreground="#94A3B8"
+                        Margin="5,0,0,0"
+                        Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+                <Label x:Name="LabelTitle"
+                       Content="Регистрация сотрудника"
+                       FontSize="14pt"
+                       Padding="5"
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center" 
+                       Foreground="#111827"/>
+            </StackPanel>
+
+            <UniformGrid Columns="2">
+                <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                    <Label Content="Фамилия"/>
+                    <TextBox Text="{Binding LastName}"
+                         Style="{StaticResource ModernTextBox}"/>
+                    <Label Content="Имя"/>
+                    <TextBox Text="{Binding FirstName}"
+                             Style="{StaticResource ModernTextBox}"/>
+                    <Label Content="Отчество"/>
+                    <TextBox Text="{Binding MiddleName}"
+                             Style="{StaticResource ModernTextBox}"/>
+                    <Label Content="Роль"/>
+                    <ComboBox x:Name="ComboRoles"
+                              SelectedItem="{Binding User.Role}"
+                              DisplayMemberPath="Name"
+                              Style="{StaticResource ModernComboBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                    
+
+                    <Expander Header="Пользователь" IsExpanded="True" Margin="0,5,0,0">
+                        <Expander.Resources>
+                            <Style TargetType="Expander">
+                                <Setter Property="HeaderTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" 
+                                                        FontSize="12pt"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Expander.Resources>
+                        <StackPanel>
+                            <Label Content="Логин"/>
+                            <TextBox Text="{Binding User.Login}"
+                                 Style="{StaticResource ModernTextBox}"/>
+                            <Label Content="Пароль"/>
+                            <PasswordBox x:Name="psbPassword" 
+                                         Style="{StaticResource ModernPasswordBox}"
+                                         PasswordChanged="psbPassword_PasswordChanged"/>
+                            <Label Content="Подтверждение пароля"/>
+                            <PasswordBox x:Name="psbPasswordConfirm" 
+                                     Style="{StaticResource ModernPasswordBox}"
+                                     PasswordChanged="psbPasswordConfirm_PasswordChanged"/>
+                        </StackPanel>
+                    </Expander>
+
+                </StackPanel>
+            </UniformGrid>
+
+            <StackPanel>
+                <Button x:Name="btnCreateAccoount"
+                    Content="➕ Создать аккаунт" 
+                    Style="{StaticResource PrimaryButtonTheme}"
+                    Margin="0,25,0,10"
+                    Background="#10B981"
+                    Foreground="#FFFFFF"
+                    Click="btnCreateAccoount_Click"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Border>
 </Page>

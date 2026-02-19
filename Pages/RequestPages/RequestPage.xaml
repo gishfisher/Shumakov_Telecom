@@ -35,23 +35,32 @@
                         Margin="5,0"
                         Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
 
-                <CheckBox Content="Скрыть закрытые"
+                <CheckBox x:Name="CheckClosed"
+                          Content="Скрыть закрытые"
                           HorizontalAlignment="Center" VerticalAlignment="Center"
                           DockPanel.Dock="Right"
                           Background="White"
                           BorderBrush="#9CA3AF"
-                          Foreground="#9CA3AF"/>
+                          Foreground="#9CA3AF"
+                          Checked="CheckBox_Checked"
+                          Unchecked="CheckBox_Unchecked"/>
 
-                <ComboBox DockPanel.Dock="Right"
+                <ComboBox x:Name="ComboPriotity"
+                          DockPanel.Dock="Right"
                           Margin="5"
                           Width="100"
                           Tag="Приоритет"
+                          DisplayMemberPath="Name"
+                          SelectionChanged="ComboPriotity_SelectionChanged"
                           Style="{StaticResource ModernComboBox}"/>
 
-                <ComboBox DockPanel.Dock="Right"
+                <ComboBox x:Name="ComboStatus"
+                          DockPanel.Dock="Right"
                           Margin="5"
                           Width="100"
                           Tag="Статус"
+                          DisplayMemberPath="Name"
+                          SelectionChanged="ComboStatus_SelectionChanged"
                           Style="{StaticResource ModernComboBox}"/>
                 
                 <TextBox x:Name="SearchBox"
@@ -59,6 +68,7 @@
                          Margin="5"
                          Width="250"
                          Tag="🔍 Поиск по клиенту"
+                         TextChanged="SearchBox_TextChanged"
                          Style="{StaticResource ModernTextBox}"/>
             </DockPanel>
 

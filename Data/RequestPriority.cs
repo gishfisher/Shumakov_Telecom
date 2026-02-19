@@ -11,7 +11,7 @@ namespace Shumakov_Telecom.Data
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class RequestPriority
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,13 +19,13 @@ namespace Shumakov_Telecom.Data
         {
             this.Requests = new HashSet<Request>();
         }
-
+    
         public int PriorityId { get; set; }
         public string Name { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Request> Requests { get; set; }
-
+        
         private static readonly Dictionary<RequestPriorityType, string> PriorityColors = new Dictionary<RequestPriorityType, string>
         {
             { RequestPriorityType.Low, "#2ECC71" },

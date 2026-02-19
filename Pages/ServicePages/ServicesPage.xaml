@@ -7,7 +7,7 @@
       xmlns:services="clr-namespace:Telecom.Services"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="#FFFFFF" Title="ServicesPage">
+      Background="#FFFFFF" Title="ServicesPage" IsVisibleChanged="Page_IsVisibleChanged">
 
     <Border Grid.Row="1" Padding="10">
         <Grid>
@@ -39,6 +39,7 @@
                          Margin="5"
                          Width="250"
                          Tag="🔍 Поиск"
+                         TextChanged="SearchBox_TextChanged"
                          Style="{StaticResource ModernTextBox}"/>
             </DockPanel>
 

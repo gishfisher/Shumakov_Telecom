@@ -45,6 +45,10 @@ namespace Telecom
 
             if (UserSessionService.IsMaster || UserSessionService.IsDispatch)
                 OpenEmployeePage.Visibility = Visibility.Collapsed;
+            else
+            {
+                OpenEmployeePage.Visibility = Visibility.Visible;
+            }
 
             TextBlockCurrentUser.Text =
                 $"👤 {UserSessionService.CurrentUser.Employees.FirstOrDefault()?.GetShortName} " +

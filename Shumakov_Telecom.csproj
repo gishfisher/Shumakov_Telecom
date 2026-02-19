@@ -155,6 +155,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\RegService.cs" />
     <Compile Include="Services\RequestService.cs" />
     <Compile Include="Services\TempStorageService.cs" />
     <Compile Include="Services\UserSessionService.cs" />

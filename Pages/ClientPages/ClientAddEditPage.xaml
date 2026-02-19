@@ -8,7 +8,56 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ClientAddEditPage">
 
-    <Grid>
-        
-    </Grid>
+    <Border MaxWidth="700"
+        VerticalAlignment="Center" HorizontalAlignment="Center"
+        Background="#FFFFFF" Width="550">
+
+        <StackPanel Margin="25">
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="GoBack"
+                    Content="◀️ Назад"
+                    Click="GoBack_Click"
+                    Foreground="#94A3B8"
+                    Margin="5,0,0,0"
+                    Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
+                <Label x:Name="LabelTitle"
+                   Content="Добавление клиента"
+                   FontSize="14pt"
+                   Padding="5"
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Foreground="#111827"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                <Label Content="Фамилия"/>
+                <TextBox Text="{Binding LastName}"
+                         Style="{StaticResource ModernTextBox}"/>
+                <Label Content="Имя"/>
+                <TextBox Text="{Binding FirstName}"
+                         Style="{StaticResource ModernTextBox}"/>
+                <Label Content="Отчество"/>
+                <TextBox Text="{Binding MiddleName}"
+                         Style="{StaticResource ModernTextBox}"/>
+                <Label Content="Номер телефона"/>
+                <TextBox Text="{Binding Phone}"
+                         Style="{StaticResource ModernTextBox}"/>
+                <Label Content="Почта"/>
+                <TextBox Text="{Binding Email}"
+                         Style="{StaticResource ModernTextBox}"/>
+            </StackPanel>
+
+            <StackPanel>
+                <Button x:Name="btnAddClient"
+                        Content="➕ Добавить клиента" 
+                        Style="{StaticResource PrimaryButtonTheme}"
+                        Margin="0,25,0,10"
+                        Background="#10B981"
+                        Foreground="#FFFFFF"
+                        Click="btnAddClient_Click"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Border>
 </Page>

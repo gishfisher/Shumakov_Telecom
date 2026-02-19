@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Shumakov_Telecom.Data;
+using Shumakov_Telecom.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telecom.Utility;
 
 namespace Telecom.Pages.ServicePages
 {
@@ -20,9 +23,71 @@ namespace Telecom.Pages.ServicePages
     /// </summary>
     public partial class ServiceAddEditPage : Page
     {
-        public ServiceAddEditPage()
+        private Service _currentService;
+
+        public ServiceAddEditPage(Service selectedService)
         {
             InitializeComponent();
+
+            if (selectedService != null)
+            {
+                _currentService = selectedService;
+
+                btnAddService.Content = "📝 Редактировать";
+                btnAddService.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2563EB");
+            }
+            else
+            {
+                _currentService = new Service();
+            }
+
+            DataContext = _currentService;
+        }
+
+        private void btnAddService_Click(object sender, RoutedEventArgs e)
+        {
+            StringBuilder errors = new StringBuilder();
+
+            if (string.IsNullOrWhiteSpace(_currentService.Name))
+                errors.AppendLine("Укажите название услуги");
+            if (_currentService.Price == 0)
+                errors.AppendLine("Укажите цену");
+            if (_currentService.Price <= 0)
+                errors.AppendLine("Цена не можеть быть отрицательной или равной нулю");
+            
+            if (errors.Length > 0)
+            {
+                MessageBox.Show(errors.ToString());
+                return;
+            }
+
+            try
+            {
+                ProductService productService = new ProductService();
+
+                if (_currentService.ServiceId == 0)
+                {
+                    if (productService.AddService(_currentService))
+                        MessageBox.Show($"Услуга {_currentService.Name}, успешно добавлена!");
+                    Manager.AppFrame.GoBack();
+                }
+                else
+                {
+                    if (productService.EditService(_currentService))
+                        MessageBox.Show($"Услуга {_currentService.Name}, успешно отредактирована!");
+                    Manager.AppFrame.GoBack();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void GoBack_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.AppFrame.GoBack();
         }
     }
 }

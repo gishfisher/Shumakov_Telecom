@@ -29,7 +29,29 @@ namespace Telecom.Pages
         public RequestPage()
         {
             InitializeComponent();
-            DataGridRequests.ItemsSource = _db.Requests.ToList();
+            
+            var allStatuses = _db.RequestStatuses.ToList();
+            var allPriotity = _db.RequestPriorities.ToList();
+
+            allStatuses.Insert(0, new RequestStatus
+            {
+                Name = "Все статусы"
+            });
+            ComboStatus.ItemsSource = allStatuses;
+
+            allPriotity.Insert(0, new RequestPriority
+            {
+                Name = "Все приоритеты"
+            });
+            ComboPriotity.ItemsSource = allPriotity;
+
+            ComboStatus.SelectedIndex = 0;
+            ComboPriotity.SelectedIndex = 0;
+
+            var currentRequest = _db.RequestStatuses.ToList();
+            DataGridRequests.ItemsSource = currentRequest;
+
+            UpdateRequests();
         }
 
         private void AddRequest_Click(object sender, RoutedEventArgs e)
@@ -49,8 +71,8 @@ namespace Telecom.Pages
                 "Внимание", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 return;
 
-            _requestService.DeleteRequest(requestForDelete);
             MessageBox.Show($"Заявка №{requestForDelete.RequestId} успешно удалена");
+            _requestService.DeleteRequest(requestForDelete);
 
             DataGridRequests.ItemsSource = _db.Requests.ToList();
         }
@@ -63,6 +85,48 @@ namespace Telecom.Pages
 
                 DataGridRequests.ItemsSource = _db.Requests.ToList();
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateRequests();
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            UpdateRequests();
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateRequests();
+        }
+        private void ComboPriotity_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateRequests();
+        }
+
+        private void ComboStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateRequests();
+        }
+
+        private void UpdateRequests()
+        {
+            var currentRequests = _db.Requests.ToList();
+
+            if (ComboPriotity.SelectedIndex > 0)
+                currentRequests = currentRequests.Where(x => x.RequestPriority == (ComboPriotity.SelectedItem as RequestPriority)).ToList();
+
+            if (ComboStatus.SelectedIndex > 0)
+                currentRequests = currentRequests.Where(x => x.RequestStatus == (ComboStatus.SelectedItem as RequestStatus)).ToList();
+
+            currentRequests = currentRequests.Where(x => x.Client.GetFullName.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
+
+            if (CheckClosed.IsChecked.Value)
+                currentRequests = currentRequests.Where(x => x.StatusId != (int)RequestStatusType.Closed).ToList();
+
+            DataGridRequests.ItemsSource = currentRequests.OrderBy(x => x.RequestId).ToList();
         }
     }
 }
