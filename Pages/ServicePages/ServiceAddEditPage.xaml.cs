@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telecom.Services;
 using Telecom.Utility;
 
 namespace Telecom.Pages.ServicePages
@@ -32,9 +33,6 @@ namespace Telecom.Pages.ServicePages
             if (selectedService != null)
             {
                 _currentService = selectedService;
-
-                btnAddService.Content = "📝 Редактировать";
-                btnAddService.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2563EB");
             }
             else
             {
@@ -54,7 +52,7 @@ namespace Telecom.Pages.ServicePages
                 errors.AppendLine("Укажите цену");
             if (_currentService.Price <= 0)
                 errors.AppendLine("Цена не можеть быть отрицательной или равной нулю");
-            
+
             if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
@@ -82,12 +80,27 @@ namespace Telecom.Pages.ServicePages
             {
                 MessageBox.Show(ex.ToString());
             }
-
         }
 
         private void GoBack_Click(object sender, RoutedEventArgs e)
         {
             Manager.AppFrame.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.IsMaster || UserSessionService.IsDispatch)
+            {
+                LabelTitle.Content = "Просмотр услуги";
+                btnAddService.Visibility = Visibility.Collapsed;
+                ServiceInfoPanel.IsEnabled = false;
+            }
+            else if (_currentService.ServiceId > 0)
+            {
+                LabelTitle.Content = "Редактирование услуги";
+                btnAddService.Content = "📝 Редактировать";
+                btnAddService.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2563EB");
+            }
         }
     }
 }

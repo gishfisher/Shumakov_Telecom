@@ -189,7 +189,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\mainlogo.png" />
-    <Resource Include="Images\logo.png" />
     <Resource Include="Images\icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +290,7 @@
       <DependentUpon>DataBase.edmx</DependentUpon>
       <LastGenOutput>DataBase.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -16,7 +16,8 @@ namespace Shumakov_Telecom.Services
 
         public bool RegisterEmployee(Employee employee, string password)
         {
-            if (employee == null) return false;
+            if (employee == null) 
+                return false;
 
             employee.User.Password_Hash = 
                 MD5Hasher.HashPassword(password);
@@ -29,7 +30,8 @@ namespace Shumakov_Telecom.Services
 
         public bool EditEmployee(Employee employee, string newPassword)
         {
-            if (employee == null) return false;
+            if (employee == null) 
+                return false;
 
             if (!string.IsNullOrWhiteSpace(newPassword))
             {

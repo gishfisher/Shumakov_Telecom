@@ -45,6 +45,7 @@ namespace Telecom.Pages
             });
             ComboPriotity.ItemsSource = allPriotity;
 
+            CheckClosed.IsChecked = true;
             ComboStatus.SelectedIndex = 0;
             ComboPriotity.SelectedIndex = 0;
 
@@ -84,6 +85,7 @@ namespace Telecom.Pages
                 _db.ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
 
                 DataGridRequests.ItemsSource = _db.Requests.ToList();
+                UpdateRequests();
             }
         }
 
@@ -110,9 +112,19 @@ namespace Telecom.Pages
         {
             UpdateRequests();
         }
+        private void CheckCurrentUser_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateRequests();
+        }
+
+        private void CheckCurrentUser_Unchecked(object sender, RoutedEventArgs e)
+        {
+            UpdateRequests();
+        }
 
         private void UpdateRequests()
         {
+            var currentUser = UserSessionService.CurrentUser?.Employees.FirstOrDefault().EmployeeId;
             var currentRequests = _db.Requests.ToList();
 
             if (ComboPriotity.SelectedIndex > 0)
@@ -125,8 +137,18 @@ namespace Telecom.Pages
 
             if (CheckClosed.IsChecked.Value)
                 currentRequests = currentRequests.Where(x => x.StatusId != (int)RequestStatusType.Closed).ToList();
+            if (CheckCurrentUser.IsChecked.Value)
+                currentRequests = currentRequests.Where(x => x.EmployeeId == currentUser).ToList();
 
             DataGridRequests.ItemsSource = currentRequests.OrderBy(x => x.RequestId).ToList();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.IsMaster)
+            {
+                AddRequest.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

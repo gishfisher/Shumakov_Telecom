@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telecom.Services;
 using Telecom.Utility;
 using TelecomCompany.ApplicationData.Crypt;
 
@@ -34,10 +35,6 @@ namespace Telecom.Pages.AuthPages
             if (selectedEmployee != null)
             {
                 _currentEmployee = selectedEmployee;
-
-                LabelTitle.Content = "Редактирование сотрудника";
-                btnCreateAccoount.Content = "📝 Редактировать";
-                btnCreateAccoount.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2563EB");
             }
             else
             {
@@ -107,7 +104,7 @@ namespace Telecom.Pages.AuthPages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка добавления {ex.Message.ToString()}");
+                MessageBox.Show($"Ошибка: {ex.Message.ToString()}");
             }
         }
 
@@ -139,6 +136,16 @@ namespace Telecom.Pages.AuthPages
         private void GoBack_Click(object sender, RoutedEventArgs e)
         {
             Manager.AppFrame.GoBack();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.IsAdmin && _currentEmployee.EmployeeId > 0)
+            {
+                LabelTitle.Content = "Редактирование сотрудника";
+                btnCreateAccoount.Content = "📝 Редактировать";
+                btnCreateAccoount.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2563EB");
+            }
         }
     }
 }

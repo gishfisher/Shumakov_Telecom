@@ -7,7 +7,7 @@
       xmlns:services="clr-namespace:Telecom.Services"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="#FFFFFF" Title="ClientsPage" IsVisibleChanged="Page_IsVisibleChanged">
+      Background="#FFFFFF" Title="ClientsPage" IsVisibleChanged="Page_IsVisibleChanged" Loaded="Page_Loaded">
 
     <Border Grid.Row="1" Padding="10">
         <Grid>

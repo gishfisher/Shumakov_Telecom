@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Telecom"
         mc:Ignorable="d"
-        Title="Telecom"
+        Title="Телеком"
         MinHeight="625" MinWidth="1000"
         Height="625" Width="1000">
 
     <Grid Background="#F4F7F9">
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -23,34 +23,7 @@
             <StackPanel Orientation="Horizontal" 
                         VerticalAlignment="Center">
 
-                <!--<Image Width="150" Source="/Images/mainlogo.png" />-->
-
-                <TextBlock Text="Телеком"
-                           FontSize="14pt"
-                           Foreground="#1E293B"
-                           Margin="0,0,5,0"
-                           FontWeight="DemiBold"
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"/>
-
-                <!--<StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Cпектр"
-                               FontSize="12pt"
-                               Foreground="#1E293B"
-                               Margin="0,0,5,0"
-                               FontWeight="DemiBold"
-                               HorizontalAlignment="Center" 
-                               VerticalAlignment="Center"/>
-                    <Border Background="#2563EB" Width="75"
-                            Padding="1" CornerRadius="2">
-                        <TextBlock Text="телеком"
-                                   FontSize="12pt"
-                                   Foreground="White" 
-                                   HorizontalAlignment="Center" 
-                                   VerticalAlignment="Center" Height="25"/>
-                    </Border>
-                </StackPanel>-->
-
+                <Image Width="120" Margin="0,5" Source="/Images/logo.png" />
 
             </StackPanel>
 
@@ -137,6 +110,6 @@
 
 
         <Grid Grid.Row="0" Grid.ColumnSpan="2" Panel.ZIndex="-1" Background="#FFFFFF"/>
-        <Grid Grid.Row="2" Panel.ZIndex="-1" Background="#2C3E50"/>
+        <Grid Grid.Row="2" Panel.ZIndex="-1" Background="#FF15629A"/>
     </Grid>
 </Window>

@@ -83,7 +83,7 @@ namespace Telecom.Pages
                 errors.AppendLine("Укажите тип обращения!");
             if (!_tempStorage.Items.Any())
                 errors.AppendLine("Укажите хотя-бы одну услугу");
-            if (_currentRequest.Description != null && _currentRequest.Description.Length > 500)
+            if (_currentRequest.Description != null && _currentRequest.Description.Length > 100)
                 errors.AppendLine("Описание не должно превышать 100 символов!");
 
             if (errors.Length > 0)
@@ -307,7 +307,8 @@ namespace Telecom.Pages
             CancelRequest.Visibility = AddRequest.Visibility =
             EditRequest.Visibility = Visibility.Collapsed;
 
-            if (request == null) return;
+            if (request == null) 
+                return;
 
             bool isAssignedToMe = request.EmployeeId != null &&
                 UserSessionService.CurrentUser.Employees.Any(e => e.EmployeeId == request.EmployeeId);

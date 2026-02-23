@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Telecom.Pages.ClientPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ClientAddEditPage">
+      Title="ClientAddEditPage" Loaded="Page_Loaded">
 
     <Border MaxWidth="700"
         VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -30,7 +30,7 @@
                    Foreground="#111827"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <StackPanel x:Name="ClientInfoPanel" Grid.Column="0" Margin="0,0,10,0">
                 <Label Content="Фамилия"/>
                 <TextBox Text="{Binding LastName}"
                          Style="{StaticResource ModernTextBox}"/>

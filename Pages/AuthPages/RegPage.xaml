@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Telecom.Pages.AuthPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RegPage">
+      Title="RegPage" Loaded="Page_Loaded">
 
     <Border MaxWidth="700"
             VerticalAlignment="Center" HorizontalAlignment="Center"

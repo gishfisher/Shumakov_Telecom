@@ -10,7 +10,7 @@
 
     <Border MaxWidth="700"
             VerticalAlignment="Center" HorizontalAlignment="Center"
-            Background="#FFFFFF" Width="550">
+            Background="#FFFFFF" Width="550" Loaded="Page_Loaded">
 
         <StackPanel Margin="25">
 
@@ -30,7 +30,7 @@
                        Foreground="#111827"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="0" Margin="0,0,10,0">
+            <StackPanel x:Name="ServiceInfoPanel" Grid.Column="0" Margin="0,0,10,0">
                 <Label Content="Наименование"/>
                 <TextBox Text="{Binding Name}"
                  Style="{StaticResource ModernTextBox}"/>

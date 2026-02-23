@@ -84,5 +84,13 @@ namespace Telecom.Pages.ServicePages
             currentRequests = currentRequests.Where(x => x.Name.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
             DataGridServices.ItemsSource = currentRequests.OrderBy(x => x.ServiceId).ToList();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.IsMaster || UserSessionService.IsDispatch)
+            {
+                ButtonAdd.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

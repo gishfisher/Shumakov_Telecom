@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telecom.Services;
 using Telecom.Utility;
 
 namespace Telecom.Pages.ClientPages
@@ -83,6 +84,14 @@ namespace Telecom.Pages.ClientPages
             var currentRequests = _db.Clients.ToList();
             currentRequests = currentRequests.Where(x => x.GetFullName.ToLower().Contains(SearchBox.Text.ToLower())).ToList();
             DataGridClients.ItemsSource = currentRequests.OrderBy(x => x.ClientId).ToList();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.IsMaster)
+            {
+                ButtonAdd.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

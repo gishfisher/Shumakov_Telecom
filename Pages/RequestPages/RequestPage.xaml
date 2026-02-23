@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RequestPage"
-      Background="#FFFFFF" IsVisibleChanged="Page_IsVisibleChanged">
+      Background="#FFFFFF" IsVisibleChanged="Page_IsVisibleChanged" Loaded="Page_Loaded">
 
     <Border Grid.Row="1" Padding="10">
         <Grid>
@@ -35,20 +35,31 @@
                         Margin="5,0"
                         Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
 
-                <CheckBox x:Name="CheckClosed"
-                          Content="Скрыть закрытые"
-                          HorizontalAlignment="Center" VerticalAlignment="Center"
-                          DockPanel.Dock="Right"
-                          Background="White"
-                          BorderBrush="#9CA3AF"
-                          Foreground="#9CA3AF"
-                          Checked="CheckBox_Checked"
-                          Unchecked="CheckBox_Unchecked"/>
+                <StackPanel DockPanel.Dock="Right">
+                    <CheckBox x:Name="CheckClosed"
+                              Content="Скрыть закрытые"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"
+                              Background="White"
+                              BorderBrush="#9CA3AF"
+                              Foreground="#9CA3AF"
+                              Checked="CheckBox_Checked"
+                              Unchecked="CheckBox_Unchecked"/>
+
+                    <CheckBox x:Name="CheckCurrentUser"
+                              Content="Показать мои заявки"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"
+                              DockPanel.Dock="Right"
+                              Background="White"
+                              BorderBrush="#9CA3AF"
+                              Foreground="#9CA3AF"
+                              Checked="CheckCurrentUser_Checked"
+                              Unchecked="CheckCurrentUser_Unchecked"/>
+                </StackPanel>
 
                 <ComboBox x:Name="ComboPriotity"
                           DockPanel.Dock="Right"
                           Margin="5"
-                          Width="100"
+                          Width="120"
                           Tag="Приоритет"
                           DisplayMemberPath="Name"
                           SelectionChanged="ComboPriotity_SelectionChanged"

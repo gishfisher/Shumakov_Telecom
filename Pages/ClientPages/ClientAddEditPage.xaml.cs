@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telecom.Services;
 using Telecom.Utility;
 
 namespace Telecom.Pages.ClientPages
@@ -29,6 +30,7 @@ namespace Telecom.Pages.ClientPages
         public ClientAddEditPage(Client selectedClient)
         {
             InitializeComponent();
+
             if (selectedClient != null)
             {
                 _currentClient = selectedClient;
@@ -85,5 +87,22 @@ namespace Telecom.Pages.ClientPages
         {
             Manager.AppFrame.GoBack();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (UserSessionService.IsMaster)
+            {
+                LabelTitle.Content = "Просмотр клиента";
+                btnAddClient.Visibility = Visibility.Collapsed;
+                ClientInfoPanel.IsEnabled = false;
+            }
+            else if (_currentClient.ClientId > 0)
+            {
+                LabelTitle.Content = "Редактирование клиента";
+                btnAddClient.Content = "📝 Редактировать";
+                btnAddClient.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#2563EB");
+            }
+        }
+
     }
 }
