@@ -38,16 +38,6 @@
                         Background="#2563EB"
                         Foreground="#FFFFFF"
                         Style="{StaticResource PrimaryButtonTheme}"/>
-
-                <!--<Button x:Name="btnCreateAcc" 
-                        Content="Registration"
-                        Background="Transparent" 
-                        Foreground="#4B5563" 
-                        BorderThickness="0" 
-                        Cursor="Hand"
-                        Click="Registration_Click"
-                        Visibility="Collapsed"/>-->
-
             </StackPanel>
         </StackPanel>
     </Border>

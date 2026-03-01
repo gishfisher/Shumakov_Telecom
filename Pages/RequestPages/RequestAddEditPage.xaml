@@ -28,7 +28,7 @@
                                 Style="{StaticResource PrimaryButtonTheme}" Cursor="Hand"/>
 
                     <Label x:Name="RequestTitle"
-                               Content="Заявка на подключение"
+                               Content="Заявка"
                                FontSize="14pt"
                                Padding="5"/>
                 </StackPanel>
@@ -311,55 +311,6 @@
                         </DockPanel>
                     </Grid>
                 </Expander>
-                <!--<UniformGrid Grid.Row="4" Columns="2" >
-                    <Expander Header="Действия" IsExpanded="True">
-                        <Expander.Resources>
-                            <Style TargetType="Expander">
-                                <Setter Property="HeaderTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding}" 
-                                                           FontSize="14pt" 
-                                                           Margin="10"/>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </Expander.Resources>
-
-                        <WrapPanel ItemWidth="125">
-
-                            <Button x:Name="CloseRequest"
-                                        Content="🎯 Закрыть заявку"
-                                        Background="#94A3B8 "
-                                        Foreground="#FFFFFF"
-                                        Style="{StaticResource PrimaryButtonTheme}"/>
-
-                            <Button x:Name="AssignRequest"
-                                        Content="🔘 Взять заявку"
-                                        Background="#2563EB "
-                                        Foreground="#FFFFFF"
-                                        Style="{StaticResource PrimaryButtonTheme}"/>
-
-                            <Button x:Name="PauseRequest"
-                                        Content="⏸️ На паузу"
-                                        Background="#E27A53 "
-                                        Foreground="#FFFFFF"
-                                        Style="{StaticResource PrimaryButtonTheme}"/>
-
-                            <Button x:Name="MarkRequestComplete" 
-                                        Content="✅ Выполнить"
-                                        Background="#10B981"
-                                        Foreground="#FFFFFF"
-                                        Style="{StaticResource PrimaryButtonTheme}"/>
-
-                            <Button x:Name="Dismiss"
-                                        Content="❎ Отклонить"
-                                        Foreground="#EF4444"
-                                        Style="{StaticResource PrimaryButtonTheme}"/>
-                        </WrapPanel>
-                    </Expander>
-                </UniformGrid>-->
             </Grid>
         </ScrollViewer>
     </Border>

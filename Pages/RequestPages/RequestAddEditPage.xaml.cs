@@ -49,6 +49,11 @@ namespace Telecom.Pages
 
                 DataGridServices.ItemsSource = _tempStorage.Items;
                 ComboEmployees.IsEnabled = false;
+
+                RequestTitle.Content =
+                    $"Заявка №{_currentRequest.RequestId:D4} " +
+                    $"на «{_currentRequest.RequestType.Name}» " +
+                    $"от {_currentRequest.CreatedAt:dd.MM.yyyy HH:mm}";
             }
             else
             {
